@@ -1,0 +1,8 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^(backend.php|qn_assets|qn_themes|installer.php)($|/) - [L]
+RewriteRule ^Themes/(.*)$ /trial/qn_themes/$1 [R=301,NC,L]
+RewriteRule ^Backend/(.*)$ /trial/backend.php?file=$1 [R=301,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

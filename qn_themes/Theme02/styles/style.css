@@ -1,0 +1,15 @@
+#Logo, #topbar, #menu, #menu>div>div
+{position: absolute; display: block;}
+#topbar
+{width: 100vw; left: 0;}
+#topbar
+{top: 0;left: 0; height: 120px; background-color: #eae3ea; width: 100%;}
+#menu
+{top: 40px; right: 0; position: absolute; color: #ff6a5c; font-size: 20px;}
+#menu a{color: #ff6a5c; text-decoration: none;}
+#Logo
+{top: 10px;font-size: 100px; color: white; left: 0; overflow-y: hidden; height: 100px;}
+#ddAcc{height: 0; overflow: hidden; background-color: #eae7ea; transition-duration: 1s; -webkit-transition-duration: 1s; position: relative; top: 100%; width: 125px; left: calc((100% - 125px) / 2); text-align: center; padding-top: 0;}
+#ddAcc .page{padding-top: 0; padding-bottom: 3px;}
+#Account:hover #ddAcc{height: 100px; transition-duration: 1s; -webkit-transition-duration: 1s; padding-top: 5px;}
+.page{padding: 10px;}
