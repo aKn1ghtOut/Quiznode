@@ -1,0 +1,40 @@
+This is the Quiz-node framework and is designed to manage user accounts and handle answers to questions in a secure way, so as to encourage 
+fair-play between players and present the admin-specified hints in a custom manner.
+
+The framework is free to use and distribute but must contain this file in the root folder of the framework.
+If you have any queries, feel free to contact me at c0mmand0gr33n@gmail.com.
+
+____________________________
+
+---- VERSION 0.05 ---- 1/9/16
+____________________________
+
+1. Project started.
+2. Empty files created.
+
+____________________________
+
+---- VERSION 0.5 ---- 25/10/16
+____________________________
+
+This is the release that contains all the features that were available in QuizArt CF 16.
+Please edit the variable in the conf.php file in the qn_config folder according to the directions given.
+Then run the installer php file as *your server*/installer.php
+For example, my installer.php could be run as c0mmand0.in/installer.php
+Please note that after completing the installation, you will need to delete the installer.php file.
+Then, go to *your server*/Mod/Login to login with the administrator account. There you can create accounts for schools and add questions.
+This is not an apt release for production purposes and is still a very early release. Much more features as well as an admin panel coming soon.
+____________________________
+
+---- VERSION 0.51 ---- 25/10/16
+____________________________
+
+The framework and all further versions are now distributed according to the GNU Public License V3 and a copy of the same has been added.
+____________________________
+
+---- VERSION 0.52 ---- 27/10/16
+____________________________
+Now the framework works with sub-folders as well. Edit the conf.php file according to the instructions given.
+Aslo, if using a sub-folder, please edit the ex.htaccess file too, rename the .htaccess file to something else and then, rename ex.htaccess to .htaccess
+For example, if your website is hosted at http://qn.in/trial, the default configuration in ex.htaccess would work, for other folders, please replace "trial" with the path
+Example: If your website is at http://qn.in/trial/2/, replace "trial" with "trial/2" in ex.htaccess and then rename the file to .htaccess. Please backup the .htaccess file by renaming it to something else before doing so.

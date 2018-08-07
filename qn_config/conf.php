@@ -20,8 +20,8 @@ $sub = "trial";
 $GLOBALS['host'] = $GLOBALS['host'] . ($sub != '' ? ('/' . $sub . "/") : '') ;
 
 // The server path to the installation folder of the script
-/*
-	In most cases, a string concated with $_SERVER['DOCUMENT_ROOT'] should be the solution.
+/* 
+	In most cases, a string concated with $_SERVER['DOCUMENT_ROOT'] should be the solution. 
 	However, you may need to try multiple values to reach the right one.
 	Note: Do not hard-code the path in the other files, please keep your edits confined in this file and in the Themes folder
 	And in the frontend folder
@@ -35,7 +35,7 @@ $GLOBALS['dBLogin'] = array(
 
 				// If the database is hosted on a server different than localhost: 3036, add the host in the next line
 				'host' => "localhost",
-
+				
 				// This is the username of the database user
 				'user' => 'qn_user',
 
@@ -43,7 +43,7 @@ $GLOBALS['dBLogin'] = array(
 				'pass' => 'password',
 
 				//This is the name of the database to be used. The user should have write permissions to this database
-				'dbname' => 'quiz_qn',
+				'dbname' => 'comf_qn',
 
 				);
 $GLOBALS['pages'] = array('none', 'Home', 'Account', 'Play', 'Group', 'Login', 'Leaderboard', 'Mod', '404');
