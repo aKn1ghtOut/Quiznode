@@ -66,7 +66,7 @@ $getAnsDet = setSalt($ans);
 $conne = qnDB_M::start();
 $sql = 'INSERT INTO qn_ques (Question, Answer, qn_salter, Hint, ImgURL, AudURL) VALUES ("'.
 		$ques . '", "'.$getAnsDet["password"].'", "'.$getAnsDet["salt"] . '", "'.$hint.'", "'.$Image['link'].'", "'.$Audio['link'].'" );';
-$sqlRes = mysql_query($sql, $conne);
+$sqlRes = mysqli_query($conne, $sql);
 if(!$sqlRes)
 die("SQL failed");
 echo "Success";

@@ -51,10 +51,10 @@ else
 	$resultFn = setSalt($_POST['Ans']);
 	$sql = 'UPDATE qn_ques SET Answer="'.$resultFn['password'].'", qn_salter="'.$resultFn['salt'].'" WHERE q_id='.$_POST['qno'] . ';';
 	echo $sql;
-	$query = mysql_query($sql, $conne);
+	$query = mysqli_query($conne, $sql);
 	qnDB_M::stop();
 	if(!$query)
-		exit("Query failed" . mysql_error());
+		exit("Query failed" . mysqli_error($conne));
 	else
 		exit("Query passed");
 } } ?>

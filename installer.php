@@ -11,9 +11,9 @@ $sql_q = "CREATE TABLE `qn_groups` (
   `noOfUsers` int(11) NOT NULL,
   PRIMARY KEY (group_id)
 );";
-$sqlRes1 = mysql_query($sql_q, $conne);
+$sqlRes1 = mysqli_query($conne, $sql_q);
 if(!$sqlRes1)
-	exit("Couldn't create groups table" . mysql_error());
+	exit("Couldn't create groups table" . mysqli_error($conne));
 else
 	echo "Created Groups table<br>";
 $sql_q = "CREATE TABLE `qn_mods` (
@@ -22,9 +22,9 @@ $sql_q = "CREATE TABLE `qn_mods` (
   `mod_pass` longtext NOT NULL,
   PRIMARY KEY (mod_id)
 );";
-$sqlRes1 = mysql_query($sql_q, $conne);
+$sqlRes1 = mysqli_query($conne, $sql_q);
 if(!$sqlRes1)
-	exit("Couldn't create moderators table". mysql_error());
+	exit("Couldn't create moderators table". mysqli_error($conne));
 else
 	echo "Created Moderators table<br>";
 $sql_q = "CREATE TABLE `qn_ques` (
@@ -37,9 +37,9 @@ $sql_q = "CREATE TABLE `qn_ques` (
   `qn_salter` longtext NOT NULL,
   PRIMARY KEY (q_id)
 );";
-$sqlRes1 = mysql_query($sql_q, $conne);
+$sqlRes1 = mysqli_query($conne, $sql_q);
 if(!$sqlRes1)
-	exit("Couldn't create questions table". mysql_error());
+	exit("Couldn't create questions table". mysqli_error($conne));
 else
 	echo "Created Questions table<br>";
 $sql_q = "CREATE TABLE `qn_users` (
@@ -57,14 +57,28 @@ $sql_q = "CREATE TABLE `qn_users` (
   `qTime` bigint(20) NOT NULL,
   PRIMARY KEY (user_id)
 );";
-$sqlRes1 = mysql_query($sql_q, $conne);
+$sqlRes1 = mysqli_query($conne, $sql_q);
 if(!$sqlRes1)
-	exit("Couldn't create Users table". mysql_error());
+	exit("Couldn't create Users table". mysqli_error($conne));
 else
 	echo "Created Users table<br>";
-$sql_q = "INSERT INTO qn_mods (mod_email, mod_pass) VALUES ('".$admin_user."', '".md5($admin_pass)."');";
-$sqlRes1 = mysql_query($sql_q, $conne);
+$sql_q = "CREATE TABLE `qn_tries` (
+  `try_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `q_no` int(11) NOT NULL,
+  `lastTried` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `wrongTries` int(11) NOT NULL,
+  PRIMARY KEY (try_id)
+)
+;";
+$sqlRes1 = mysqli_query($conne, $sql_q);
 if(!$sqlRes1)
-	exit("Couldn't create Moderator account". mysql_error());
+    exit("Couldn't create Tries table". mysqli_error($conne));
+else
+    echo "Created Tries table<br>";
+$sql_q = "INSERT INTO qn_mods (mod_email, mod_pass) VALUES ('".$admin_user."', '".md5($admin_pass)."');";
+$sqlRes1 = mysqli_query($conne, $sql_q);
+if(!$sqlRes1)
+	exit("Couldn't create Moderator account". mysqli_error($conne));
 else
 	echo "Created moderator account<br>User id = " . $admin_user . " <br>Password = " . $admin_pass;

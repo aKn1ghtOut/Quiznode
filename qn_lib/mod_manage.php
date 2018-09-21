@@ -6,36 +6,39 @@ class qnDB_M
 	{
 		if(!isset($GLOBALS['dBLogin']))
 			die("Database variables not available");
-		$conn = mysql_connect($GLOBALS['dBLogin']['host'], $GLOBALS['dBLogin']['user'], $GLOBALS['dBLogin']['pass']);
+		$conn = new mysqli($GLOBALS['dBLogin']['host'], $GLOBALS['dBLogin']['user'], $GLOBALS['dBLogin']['pass'], $GLOBALS['dBLogin']['dbname']);
 		if(! $conn)
-			die("Could not connect to database: " . mysql_error());
-		$selectDB = mysql_select_db($GLOBALS['dBLogin']['dbname']);
-		if(! $selectDB)
-			die("Could not select database: ". mysql_error());
+			die("Could not connect to database: " . mysqli_error($conn));
+        self::$conn = $conn;
 		return $conn;
 	}
 	public static function Login($username, $password, $conn)
 	{
-		if(!isset($conn))
-			die("Database connection not established");
-
-		//Now try to log in as mod
-		$sql = 'SELECT * FROM qn_mods WHERE mod_email="'. $username .'" and mod_pass="'.md5($password).'" ;';
-		$sqlval = mysql_query($sql, $conn);
-		if(mysql_num_rows($sqlval) == 1)
-		{
-			session_start();
-			$_SESSION['type'] = "mod";
-			$_SESSION['email'] = $username;
-			mysql_free_result($sqlval);
-			return 1;
-		}
-		mysql_free_result($sqlval);
+        if(!isset($conn))
+            die("Database connection not established");
+        if (filter_var($username, FILTER_VALIDATE_EMAIL) === false)
+            return 0;
+        //Try logging in as a user first
+        $pass_hash = md5($password);
+        $sql = 'SELECT * FROM qn_mods WHERE mod_email=? and mod_pass=? ;';
+        $stmt = self::$conn->prepare($sql);
+        $stmt->bind_param("ss", $username, md5($password));
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if(mysqli_num_rows($result) == 1)
+        {
+            $reslt = mysqli_fetch_assoc($result);
+            session_start();
+            $_SESSION['type'] = "mod";
+            $_SESSION['email'] = $username;
+            return 1;
+        }
+        $stmt->close();
 		return 0;
 	}
 	public static function stop()
 	{
-		mysql_close();
+        mysqli_close(self::$conn);
 	}
 	public static function logout()
 	{
@@ -44,13 +47,14 @@ class qnDB_M
 	}
 	public static function createGroup($name, $email, $password, $conn)
 	{
-		$match = array(mysql_query('SELECT * FROM qn_users WHERE u_email="'. $email .'" ;', $conn), mysql_query('SELECT * FROM qn_groups WHERE group_email="'. $email .'" ;', $conn));
-		if(mysql_num_rows($match[0]) > 0 || mysql_num_rows($match[1]) > 0)
+		$match = array(mysqli_query($conn, 'SELECT * FROM qn_users WHERE u_email="'. $email .'" ;'), mysqli_query($conn, 'SELECT * FROM qn_groups WHERE group_email="'. $email .'" ;'));
+		if(mysqli_num_rows($match[0]) > 0 || mysqli_num_rows($match[1]) > 0)
 			return "error_801: Email already in use";
-		$sql = 'INSERT INTO qn_groups (group_name, group_email, group_pass, noOfUsers, dateSince) VALUES ("'.$name.'", "'.$email.'", "'. md5($password) . '", 0, NOW() ) ;';
-		$sqlval = mysql_query($sql, $conn);
+		$mdPass = md5($password);
+		$sql = 'INSERT INTO qn_groups (group_name, group_email, group_pass, noOfUsers, dateSince) VALUES ("'.$name.'", "' . $email . '", "'. $mdPass . '", 0, NOW() ) ;';
+		$sqlval = mysqli_query($conn, $sql);
 		if(! $sqlval)
-			return 'error_802: ' . mysql_error();
+			return 'error_802: ' . mysqli_error($conn);
 		return 1;
 	}
 }

@@ -35,7 +35,7 @@ if (!isset($_SESSION)) {
 	</div>
 	<div id="topbar" class="abs pW100"><div class="rel pW100"><div class="abs" style="max-width: 1000px; width: 100vw; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); height: 120px;">
 		<div class="cW100" style="position: relative; height: 100%;">
-			<span class="inlBlk" id="Logo"><a href="<?php echo $GLOBALS['host']; ?>" style="text-decoration: none; color: white;"><img src="<?php echo $GLOBALS['host'];?>/Themes/Theme02/assets/logo2.png" style="height: 100px; width: auto;"></a></span>
+			<span class="inlBlk" id="Logo"><a href="<?php echo $GLOBALS['host']; ?>" style="text-decoration: none; color: white;"><img src="<?php echo $GLOBALS['host'];?>/Themes/Theme02/assets/quizartfull.png" style="height: 100px; width: auto;"></a></span>
 			<div class="inlBlk" id="menu">
 				<a class="page" href="<?php echo $GLOBALS['host'];?>/">Home</a>
 				<?php if(!isset($_SESSION['type'])||!($_SESSION['type'] == "user")) { ?>
@@ -75,10 +75,10 @@ if (!isset($_SESSION)) {
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	
+
 	  ga('create', 'UA-85373424-1', 'auto');
 	  ga('send', 'pageview');
-	
+
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $GLOBALS['host'];?>/Themes/Theme02/scripts/base.js"></script>

@@ -11,38 +11,43 @@ if ($_SESSION['type'] == "mod") {
 	include $GLOBALS['root'] . "/qn_lib/mod_manage.php";
 	$conne = qnDB_M::start();
 	$sql = 'SELECT * FROM qn_mods WHERE mod_email="'.$_SESSION['email'].'" AND mod_pass="'.md5($_POST['pass1']).'" ;';
-	$sqlRes = mysql_query($sql, $conne);
+	$sqlRes = mysqli_query($sql, $conne);
 	if(!$sqlRes)
-		exit("Error: " . mysql_error());
-	if(mysql_num_rows($sqlRes) == 1)
+		exit("Error: " . mysqli_error($conne));
+	if(mysqli_num_rows($sqlRes) == 1)
 	{
 		$sql2 = 'UPDATE qn_mods SET mod_pass="'.md5($_POST['pass2']).'" WHERE mod_email="'.$_SESSION['email'].'" ;';
-		$sqlRes2 = mysql_query($sql2, $conne);
+		$sqlRes2 = mysqli_query($sql2, $conne);
 		if(!$sqlRes2)
-			exit("Couldn't change password: ". mysql_error());
+			exit("Couldn't change password: ". mysqli_error($conne));
 	}
 }
 else
 {
 	include $GLOBALS['root'] . "/qn_lib/user_manage.php";
 	$conne = qnDB_U::start();
-	$sql = array('SELECT * FROM qn_users WHERE u_email="'.$_SESSION['email'].'" AND u_pass="'.md5($_POST['pass1']).'" ;' , 'SELECT * FROM qn_groups WHERE group_email="'.$_SESSION['email'].'" AND group_pass="'.md5($_POST['pass1']).'" ;') ;
-	$sqlRes = array(mysql_query($sql[0], $conne), mysql_query($sql[1], $conne));
+	$sql = array(
+
+	    'SELECT * FROM qn_users WHERE u_email="'.$_SESSION['email'].'" AND u_pass="'.md5($_POST['pass1']).'" ;' ,
+
+        'SELECT * FROM qn_groups WHERE group_email="'.$_SESSION['email'].'" AND group_pass="'.md5($_POST['pass1']).'" ;'
+    ) ;
+	$sqlRes = array(mysqli_query($conne), mysqli_query($sql[1], $conne), $sql[0]);
 	if((!$sqlRes[0])||(!$sqlRes[1]))
-		exit("Error: " . mysql_error());
-	if(mysql_num_rows($sqlRes[0]) == 1)
+		exit("Error: " . mysqli_error($conne));
+	if(mysqli_num_rows($sqlRes[0]) == 1)
 	{
 		$sql2 = 'UPDATE qn_users SET u_pass="'.md5($_POST['pass2']).'" WHERE u_email="'.$_SESSION['email'].'" ;';
-		$sqlRes2 = mysql_query($sql2, $conne);
+		$sqlRes2 = mysqli_query($sql2, $conne);
 		if(!$sqlRes2)
-			exit("Couldn't change password: ". mysql_error());
+			exit("Couldn't change password: ". mysqli_error($conne));
 	}
-	elseif (mysql_num_rows($sqlRes[1]) == 1)
+	elseif (mysqli_num_rows($sqlRes[1]) == 1)
 	{
 		$sql2 = 'UPDATE qn_groups SET group_pass="'.md5($_POST['pass2']).'" WHERE group_email="'.$_SESSION['email'].'" ;';
-		$sqlRes2 = mysql_query($sql2, $conne);
+		$sqlRes2 = mysqli_query($sql2, $conne);
 		if(!$sqlRes2)
-			exit("Couldn't change password: ". mysql_error());
+			exit("Couldn't change password: ". mysqli_error($conne));
 	}
 	exit("Changed");
 }

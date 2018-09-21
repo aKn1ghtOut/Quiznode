@@ -15,13 +15,13 @@ else
 		$qSet = true;
 	}
 	$sql = "SELECT * FROM qn_ques WHERE q_id=" . $qid . " ;";
-	$sqlRes = mysql_query($sql, $conne);
-	if(mysql_num_rows($sqlRes) == 0){
+	$sqlRes = mysqli_query($conne, $sql);
+	if(mysqli_num_rows($sqlRes) == 0){
 		?><span style="font-size: 30px;">You have reached end of Quiz. Nice Quizzing!<br>Check back later for further questions.</span><?php
 	}
 	else
 	{
-		$obj = mysql_fetch_assoc($sqlRes, MYSQL_ASSOC);
+		$obj = mysqli_fetch_assoc($sqlRes);
 	?>
 		<select id="pageID" style="">
 			<option value="<?php echo ($_SESSION['score'] + 1) ; ?>" <?php if(!$qSet){ ?>selected<?php } ?>>Current Question</option>

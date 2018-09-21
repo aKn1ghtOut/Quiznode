@@ -20,7 +20,8 @@ $Image = array(
 if (file_exists($_FILES['propic']['tmp_name'])) {
 	$name = $_FILES['propic']['name'];
 	$Image['set'] = 1;
-	$Image['ext'] = end((explode('.', $name)));
+	$ext1 = (explode('.', $name));
+	$Image['ext'] = end($ext1);
 	if($Image['ext'] != "png"&&$Image['ext'] != "PNG"&&$Image['ext'] != "jpg"&&$Image['ext'] != "JPG"&&$Image['ext'] != "jpeg"&&$Image['ext'] != "JPEG")
 		exit("Invalid Image");
 	$Image['nameAss'] = md5(uniqid(rand(), true));
@@ -36,7 +37,7 @@ else
 include_once $GLOBALS['root'].'/qn_lib/user_manage.php';
 $conne = qnDB_U::start();
 $sql = 'UPDATE qn_users SET propic="'.$Image['link'].'" WHERE u_email="'.$_SESSION['email'].'" ;';
-$sqlRes = mysql_query($sql, $conne);
+$sqlRes = mysqli_query($conne, $sql);
 if(!$sqlRes)
 	exit("Error. Try again Later.");
 else
