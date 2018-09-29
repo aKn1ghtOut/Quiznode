@@ -3,6 +3,13 @@ fair-play between players and present the admin-specified hints in a custom mann
 
 The framework is free to use and distribute but must contain this file in the root folder of the framework.
 If you have any queries, feel free to contact me at c0mmand0gr33n@gmail.com.
+____________________________
+
+Update:
+____________________________
+
+Please create a qn_assets folder after installation if not already created.
+Also, your make sure that the nysqli/nd_nysqli and mysqlind PHP plugins are enabled. mysqlind gives a conflict error with mysqli, so you people would need to switch to nd_mysqli if available.
 
 ____________________________
 
